@@ -43,6 +43,10 @@ Use React Three Fiber best practices.
 
 Update project_log.md after every completed milestone.
 
+The absence of an explicit prohibition is NOT permission to make changes.
+
+Unless the current prompt explicitly authorizes implementation, repository modifications are forbidden.
+
 ## Development Contract
 
 This project follows milestone-based development.
@@ -101,3 +105,4 @@ Before proposing removal of any file:
 3. Wait for explicit approval.
 
 Never perform destructive operations without approval.
+
