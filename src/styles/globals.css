@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+:root,
+html,
+body,
+#root {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	background: #000000;
+}
+
+canvas {
+	display: block;
+}
