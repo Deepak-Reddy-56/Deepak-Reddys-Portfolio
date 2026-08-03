@@ -80,3 +80,40 @@ Technical Debt:
 
 Recommended Next Step:
 - Review and test the Phase 1 bootstrap. After explicit approval, provide or confirm the canonical workspace GLB and begin Phase 2: Import Blender Scene.
+
+---
+
+## 2026-08-03 — Phase 4: Camera behaviour foundation
+
+Task Completed:
+- Implemented the Camera Behaviour architecture foundation: manager, registry, and request API.
+- Registered default camera states (Landing, Idle, Desk, Monitor, Desktop, Browser) with the approved inspection camera as the Landing/initial state.
+
+Files Created:
+- `src/systems/camera/types.ts`
+- `src/systems/camera/cameraConfig.ts`
+- `src/systems/camera/registry.ts`
+- `src/systems/camera/cameraController.ts`
+- `src/systems/camera/CameraManager.tsx`
+
+Files Modified:
+- `src/App.tsx` (now mounts `CameraManager`)
+- `src/systems/camera/CameraSystem.tsx` (now only exports the component and imports `INITIAL_CAMERA`)
+
+Reasoning:
+- Establish a minimal, extensible camera behaviour surface so other systems can request camera states without directly manipulating the camera.
+- Preserve the approved static inspection camera exactly as the canonical initial state.
+- Keep the implementation intentionally simple: immediate application of registered states without interpolation or animation.
+
+Verification:
+- `npm run typecheck` passed.
+- `npm run lint` passed.
+- `npm run build` passed.
+- `npm run dev` served the app and the rendered view remained visually identical to the approved Phase 2 composition.
+
+Known Issues / Notes:
+- No runtime errors observed. Upstream Three.js deprecation warnings remain and are non-blocking.
+
+Recommended Next Step:
+- Phase 5: Camera Transitions — introduce a `CameraController` that consumes the registry and performs smooth interpolation between named states. Keep animation logic internal and avoid external dependencies unless justified.
+
