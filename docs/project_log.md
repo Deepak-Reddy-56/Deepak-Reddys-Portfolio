@@ -119,6 +119,41 @@ Recommended Next Step:
 
 ---
 
+## 2026-08-04 — Phase 6: Scene ↔ Interaction Bridge
+
+Task Completed:
+- Implemented the Scene ↔ Interaction Bridge so scene objects can register declaratively without touching the Interaction Registry directly.
+- Added the bridge context, hook, and target component to support lifecycle-managed registration for future scene objects.
+
+Files Created:
+- `src/systems/scene-interaction/types.ts`
+- `src/systems/scene-interaction/bridgeContext.ts`
+- `src/systems/scene-interaction/SceneInteractionBridge.tsx`
+- `src/systems/scene-interaction/useSceneInteractionBridge.ts`
+- `src/systems/scene-interaction/SceneInteractionTarget.tsx`
+
+Files Modified:
+- `src/App.tsx` (wraps the scene in `SceneInteractionBridgeProvider`)
+
+Reasoning:
+- Keep the Scene System and Interaction System independent while providing a single declarative bridge between them.
+- Allow future scene objects to register stable interaction metadata through lifecycle-managed scene components.
+
+Verification:
+- `npm run typecheck` passed.
+- `npm run lint` passed.
+- `npm run build` passed.
+- `npm run dev` served the app and the rendered view remained visually identical to the approved Phase 5 composition.
+
+Known Issues / Notes:
+- No runtime errors observed. Upstream Three.js deprecation warnings remain and are non-blocking.
+
+Recommended Next Step:
+- Phase 7: Monitor Registration — register the canonical monitor through `SceneInteractionTarget` using a stable interaction ID and verify it appears in the Interaction Registry.
+
+
+---
+
 ## 2026-08-04 — Phase 5: Interaction foundation
 
 Task Completed:
