@@ -185,4 +185,32 @@ Known Issues / Notes:
 Recommended Next Step:
 - Phase 6: Scene ↔ Interaction Bridge — add declarative scene registration so scene objects can register themselves with the interaction system through a dedicated bridge layer.
 
+---
+
+## 2026-08-04 — Phase 7: Monitor registration
+
+Task Completed:
+- Registered the canonical monitor through `SceneInteractionTarget` using a stable interaction ID.
+- Verified the monitor registration appears in the Interaction Registry and remains lifecycle-managed through the Scene ↔ Interaction Bridge.
+
+Files Modified:
+- `src/scene/Workspace.tsx`
+
+Reasoning:
+- Establish the first concrete interactable target without introducing interaction behavior.
+- Preserve the declarative scene-to-interaction registration path for future interactable objects.
+
+Verification:
+- `npm run typecheck` passed.
+- `npm run lint` passed.
+- `npm run build` passed.
+- `npm run dev` served the app and the rendered view remained visually identical to the approved composition.
+
+Known Issues / Notes:
+- No runtime errors observed. Upstream Three.js deprecation warnings remain and are non-blocking.
+
+Recommended Next Step:
+- Phase 8: Input System Foundation — establish the input pipeline that translates device events into abstract interaction requests without coupling to scene or camera logic.
+
+
 
