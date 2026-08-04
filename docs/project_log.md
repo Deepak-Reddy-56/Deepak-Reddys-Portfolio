@@ -117,3 +117,37 @@ Known Issues / Notes:
 Recommended Next Step:
 - Phase 5: Camera Transitions — introduce a `CameraController` that consumes the registry and performs smooth interpolation between named states. Keep animation logic internal and avoid external dependencies unless justified.
 
+---
+
+## 2026-08-04 — Phase 5: Interaction foundation
+
+Task Completed:
+- Implemented the Interaction foundation with a manager, registry, controller, and typed request/event interfaces.
+- Established the registration lifecycle for future interactable objects without implementing any interaction behaviour.
+
+Files Created:
+- `src/systems/interaction/types.ts`
+- `src/systems/interaction/registry.ts`
+- `src/systems/interaction/controller.ts`
+- `src/systems/interaction/InteractionManager.tsx`
+
+Files Modified:
+- `src/App.tsx` (now mounts `InteractionManager` alongside the camera system)
+
+Reasoning:
+- Provide a modular interaction surface that future systems can request and observe without direct coupling.
+- Keep the interaction layer inert for now so the existing scene and camera remain visually unchanged.
+
+Verification:
+- `npm run typecheck` passed.
+- `npm run lint` passed.
+- `npm run build` passed.
+- `npm run dev` served the app and the rendered view remained visually identical to the approved Phase 2/3 composition.
+
+Known Issues / Notes:
+- No runtime errors observed. Upstream Three.js deprecation warnings remain and are non-blocking.
+
+Recommended Next Step:
+- Phase 6: Scene ↔ Interaction Bridge — add declarative scene registration so scene objects can register themselves with the interaction system through a dedicated bridge layer.
+
+

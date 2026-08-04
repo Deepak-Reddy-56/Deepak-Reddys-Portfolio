@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Workspace from './scene/Workspace';
 import CameraManager from './systems/camera/CameraManager';
+import InteractionManager from './systems/interaction/InteractionManager';
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       <ambientLight intensity={0.45} />
       <directionalLight position={[4, 8, 6]} intensity={0.7} />
       <CameraManager />
+      <InteractionManager />
       <Suspense fallback={null}>
         <Workspace />
       </Suspense>
