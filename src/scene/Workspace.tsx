@@ -6,13 +6,28 @@ import SceneInteractionTarget from '../systems/scene-interaction/SceneInteractio
 export default function Workspace() {
   const { scene } = useGLTF(workspaceUrl);
 
+  const monitorObject = scene.getObjectByName('Monitor');
+
+  if (!monitorObject) {
+    throw new Error('Monitor object not found in workspace scene.');
+  }
+
   return (
     <>
       <primitive object={scene} />
+
       <SceneInteractionTarget
         definition={{
           id: 'monitor',
-          supportedInteractions: ['hover', 'hoverEnd', 'click', 'doubleClick', 'focus', 'blur'],
+          object: monitorObject,
+          supportedInteractions: [
+            'hover',
+            'hoverEnd',
+            'click',
+            'doubleClick',
+            'focus',
+            'blur',
+          ],
         }}
       />
     </>

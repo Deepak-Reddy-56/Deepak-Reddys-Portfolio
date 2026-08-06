@@ -5,7 +5,11 @@ import { subscribeInteractionEvents, subscribeInteractionRequests } from './cont
 export default function InteractionManager() {
   useEffect(() => {
     const unsubscribeRequests = subscribeInteractionRequests((request) => {
-      getInteractable(request.targetId);
+      const interactable = getInteractable(request.targetId);
+
+      if (!interactable) {
+        return;
+      }
     });
 
     const unsubscribeEvents = subscribeInteractionEvents(() => {

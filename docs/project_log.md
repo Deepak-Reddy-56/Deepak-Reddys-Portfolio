@@ -213,4 +213,24 @@ Recommended Next Step:
 - Phase 8: Input System Foundation — establish the input pipeline that translates device events into abstract interaction requests without coupling to scene or camera logic.
 
 
+## Phase 9 – Pointer Detection Foundation
 
+### Objective
+Implemented the first behavioral milestone by introducing pointer-based detection of registered interaction targets while preserving the existing system architecture. This milestone enables detection only; it does not introduce any visible interaction behavior.
+
+### Files Created
+- `src/systems/input/PointerDetection.tsx`
+
+### Files Modified
+- `src/App.tsx`
+
+### Implementation Summary
+- Added the `PointerDetection` system and mounted it alongside the existing Camera, Interaction, and Input systems.
+- Implemented pointer raycasting using Three.js `Raycaster`.
+- Used React Three Fiber's camera and normalized pointer coordinates to cast rays into the scene.
+- Queried the Interaction Registry for registered interactables instead of relying on hard-coded scene objects.
+- Resolved the stable interaction ID from the registered interactable.
+- Emitted an abstract interaction request through the existing Interaction System when the pointer first intersected a registered target.
+- Added internal state tracking to prevent duplicate interaction requests from being emitted every render frame while the pointer remained over the same object.
+
+### Detection Pipeline

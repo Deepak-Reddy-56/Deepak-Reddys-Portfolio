@@ -82,8 +82,25 @@ export default function InputManager() {
         return;
       }
 
-      const inputRecord = createInputRecord(inputType, event);
-      emitInputEvent(inputRecord);
+      let payload: unknown = event;
+
+      if (event instanceof PointerEvent) {
+        payload = {
+          clientX: event.clientX,
+          clientY: event.clientY,
+        };
+      } else if (event instanceof KeyboardEvent) {
+        payload = {
+          key: event.key,
+          code: event.code,
+        };
+      } else if (event instanceof TouchEvent) {
+        payload = {
+          touches: event.touches.length,
+        };
+      }
+
+      const inputRecord = createInputRecord(inputType, payload); emitInputEvent(inputRecord);
       requestInput(inputRecord);
     };
 

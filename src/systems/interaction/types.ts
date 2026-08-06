@@ -1,8 +1,11 @@
 export type InteractionType = 'hover' | 'hoverEnd' | 'click' | 'doubleClick' | 'focus' | 'blur' | 'input';
 
+import type { Object3D } from "three";
+
 export interface InteractableRegistration {
-  id: string;
-  supportedInteractions: InteractionType[];
+    id: string;
+    object: Object3D;
+    supportedInteractions: InteractionType[];
 }
 
 export interface InteractionRequest {
