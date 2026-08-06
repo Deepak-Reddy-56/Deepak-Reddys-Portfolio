@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import Workspace from './scene/Workspace';
 import CameraManager from './systems/camera/CameraManager';
 import InteractionManager from './systems/interaction/InteractionManager';
+import InputManager from './systems/input/InputManager';
 import { SceneInteractionBridgeProvider } from './systems/scene-interaction/SceneInteractionBridge';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
       <directionalLight position={[4, 8, 6]} intensity={0.7} />
       <CameraManager />
       <InteractionManager />
+      <InputManager />
       <SceneInteractionBridgeProvider>
         <Suspense fallback={null}>
           <Workspace />

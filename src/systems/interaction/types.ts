@@ -1,4 +1,4 @@
-export type InteractionType = 'hover' | 'hoverEnd' | 'click' | 'doubleClick' | 'focus' | 'blur';
+export type InteractionType = 'hover' | 'hoverEnd' | 'click' | 'doubleClick' | 'focus' | 'blur' | 'input';
 
 export interface InteractableRegistration {
   id: string;
