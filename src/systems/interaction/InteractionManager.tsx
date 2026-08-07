@@ -10,6 +10,7 @@ import {
 
 export default function InteractionManager() {
   const hoveredTarget = useRef<string | null>(null);
+  const focusedTarget = useRef<string | null>(null);
 
   useEffect(() => {
     const unsubscribeRequests = subscribeInteractionRequests((request) => {
@@ -83,8 +84,33 @@ export default function InteractionManager() {
       });
     });
 
-    const unsubscribeEvents = subscribeInteractionEvents(() => {
-      // Further use
+    const unsubscribeEvents = subscribeInteractionEvents((event) => {
+
+      if (event.type !== 'click') {
+        return;
+      }
+
+      if (focusedTarget.current === event.targetId) {
+        return;
+      }
+
+      if (focusedTarget.current !== null) {
+        emitInteractionEvent({
+          id: crypto.randomUUID(),
+          targetId: focusedTarget.current,
+          type: 'blur',
+          timestamp: Date.now(),
+        });
+      }
+
+      focusedTarget.current = event.targetId;
+
+      emitInteractionEvent({
+        id: crypto.randomUUID(),
+        targetId: focusedTarget.current,
+        type: 'focus',
+        timestamp: Date.now(),
+      });
     });
 
     return () => {
