@@ -6,6 +6,7 @@ export interface InteractableRegistration {
     id: string;
     object: Object3D;
     supportedInteractions: InteractionType[];
+    cameraState?: string;
 }
 
 export interface InteractionRequest {

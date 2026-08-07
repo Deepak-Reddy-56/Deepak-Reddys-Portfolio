@@ -1,5 +1,5 @@
 import type { CameraState } from './types';
-import { INITIAL_CAMERA } from './cameraConfig';
+import { INITIAL_CAMERA,CAMERA_FOV } from './cameraConfig';
 
 const states = new Map<string, CameraState>();
 
@@ -35,14 +35,24 @@ export function registerDefaultStates() {
     position: INITIAL_CAMERA.position,
     lookAt: INITIAL_CAMERA.lookAt,
     roll: INITIAL_CAMERA.roll,
-    fov: 39.6,
+    fov: CAMERA_FOV.LANDING,
     near: 0.1,
     far: 1000,
   } as const;
 
+  registerState({
+    id: 'Monitor',
+    position: [-6.1, 16.25, 0.8],
+    lookAt: [-6.0927, 16.18, 0.2],
+    roll: INITIAL_CAMERA.roll,
+    fov: CAMERA_FOV.MONITOR,
+    near: 0.1,
+    far: 1000,
+  });
+
   registerState({ id: 'Idle', ...placeholder });
   registerState({ id: 'Desk', ...placeholder });
-  registerState({ id: 'Monitor', ...placeholder });
+
   registerState({ id: 'Desktop', ...placeholder });
   registerState({ id: 'Browser', ...placeholder });
 }

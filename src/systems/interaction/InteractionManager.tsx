@@ -91,7 +91,11 @@ export default function InteractionManager() {
         return;
       }
 
-      requestCameraState('Monitor');
+      const interactable = getInteractable(event.targetId);
+
+if (interactable?.cameraState) {
+  requestCameraState(interactable.cameraState);
+}
 
 
       if (focusedTarget.current === event.targetId) {

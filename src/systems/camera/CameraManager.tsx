@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { useThree } from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import { subscribeCameraRequests } from './cameraController';
 import { getState, registerDefaultStates } from './registry';
+import { Vector3 } from 'three';
 
 // CameraManager listens for requested camera states and applies them.
 // For Phase 4 we only register and apply the initial Landing state. No
@@ -9,6 +10,8 @@ import { getState, registerDefaultStates } from './registry';
 // future milestones.
 export default function CameraManager() {
   const { camera } = useThree();
+  const targetState = useRef(getState('Landing') ?? null);
+  const targetPosition = useRef(new Vector3());
 
   useEffect(() => {
     registerDefaultStates();
@@ -28,15 +31,27 @@ export default function CameraManager() {
     const unsub = subscribeCameraRequests((stateId) => {
       const s = getState(stateId);
       if (!s) return;
-      camera.position.set(...s.position);
-      camera.lookAt(...s.lookAt);
-      if (s.roll) camera.rotateZ(s.roll);
-      camera.updateProjectionMatrix();
-      camera.updateMatrixWorld();
+
+      targetState.current = s;
     });
 
     return () => { unsub(); };
   }, [camera]);
+
+  useFrame((_, delta) => {
+    const target = targetState.current;
+
+    if (!target) {
+      return;
+    }
+
+    targetPosition.current.set(...target.position);
+    const smoothing = 1.85;
+    const alpha = 1 - Math.exp(-smoothing * delta);
+
+    camera.position.lerp(targetPosition.current, alpha);
+    camera.lookAt(...target.lookAt);
+  });
 
   return null;
 }

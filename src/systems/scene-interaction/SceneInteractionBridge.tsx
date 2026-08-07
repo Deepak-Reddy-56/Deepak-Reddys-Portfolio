@@ -15,6 +15,7 @@ export function SceneInteractionBridgeProvider({
           id: definition.id,
           object: definition.object,
           supportedInteractions: definition.supportedInteractions,
+          cameraState: definition.cameraState,
         });
       },
 

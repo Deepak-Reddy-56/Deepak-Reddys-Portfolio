@@ -293,3 +293,38 @@ Implemented the first behavioral milestone by introducing pointer-based detectio
 - Hover, click, focus and hoverEnd verified manually.
 - Repeated clicks on the focused interactable do not emit duplicate focus events.
 - No visual regressions observed.
+
+## Phase 13 – Camera Request Integration
+
+### Completed
+- Connected the Interaction System to the Camera System.
+- Camera requests are now issued on monitor click events.
+- Separated camera requests from focus state changes, allowing repeated clicks to trigger camera requests without emitting duplicate focus events.
+- Preserved the event-driven architecture between interaction and camera systems.
+- Maintained separation of responsibilities between InteractionManager and CameraManager.
+
+### Validation
+- npm run typecheck
+- npm run lint
+- npm run build
+- npm run dev
+- Camera requests verified on every monitor click.
+- Focus events emitted only on the initial focus transition.
+- No visual regressions observed.
+
+## Phase 15 – Data-Driven Camera Routing
+
+### Completed
+- Removed object-specific camera routing from the interaction pipeline.
+- Extended interactable registrations with an optional `cameraState` property.
+- Updated the Scene Interaction Bridge to forward camera state metadata.
+- Assigned the Monitor interactable to the `Monitor` camera state.
+- InteractionManager now requests camera states dynamically from interactable metadata instead of relying on hardcoded object names.
+- Preserved the event-driven communication between the Interaction and Camera systems.
+
+### Validation
+- npm run typecheck
+- npm run lint
+- npm run build
+- Verified monitor interaction correctly requests the configured camera state.
+- Verified smooth camera transition remains functional after refactoring.

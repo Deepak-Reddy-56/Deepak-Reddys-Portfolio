@@ -28,6 +28,7 @@ export default function Workspace() {
             'focus',
             'blur',
           ],
+          cameraState: "Monitor",
         }}
       />
     </>
