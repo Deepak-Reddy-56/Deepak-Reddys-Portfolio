@@ -1,15 +1,55 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { getInteractable } from './registry';
-import { subscribeInteractionEvents, subscribeInteractionRequests } from './controller';
+import {
+  emitInteractionEvent,
+  subscribeInteractionEvents,
+  subscribeInteractionRequests,
+} from './controller';
 
 export default function InteractionManager() {
+  const hoveredTarget = useRef<string | null>(null);
+
   useEffect(() => {
     const unsubscribeRequests = subscribeInteractionRequests((request) => {
+
       const interactable = getInteractable(request.targetId);
 
       if (!interactable) {
+        if (hoveredTarget.current !== null) {
+          emitInteractionEvent({
+            id: crypto.randomUUID(),
+            targetId: hoveredTarget.current,
+            type: 'hoverEnd',
+            timestamp: Date.now(),
+          });
+
+          hoveredTarget.current = null;
+        }
+
         return;
       }
+
+      if (hoveredTarget.current === interactable.id) {
+        return;
+      }
+
+      if (hoveredTarget.current !== null) {
+        emitInteractionEvent({
+          id: crypto.randomUUID(),
+          targetId: hoveredTarget.current,
+          type: 'hoverEnd',
+          timestamp: Date.now(),
+        });
+      }
+
+      hoveredTarget.current = interactable.id;
+
+      emitInteractionEvent({
+        id: crypto.randomUUID(),
+        targetId: interactable.id,
+        type: 'hover',
+        timestamp: Date.now(),
+      });
     });
 
     const unsubscribeEvents = subscribeInteractionEvents(() => {

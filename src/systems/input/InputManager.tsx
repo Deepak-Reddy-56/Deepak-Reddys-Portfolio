@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { requestInteraction } from '../interaction/controller';
-import { emitInputEvent, requestInput, subscribeInputRequests } from './controller';
+import { emitInputEvent, requestInput } from './controller';
 import { registerInputSource, unregisterInputSource } from './registry';
 import type { InputDeviceType, InputEventType } from './types';
 
@@ -66,15 +65,6 @@ export default function InputManager() {
       supportedEvents: ['pointerDown', 'pointerMove', 'pointerUp', 'pointerCancel'],
     });
 
-    const forwardRequest = subscribeInputRequests((request) => {
-      requestInteraction({
-        targetId: 'input',
-        type: 'input',
-        source: request.sourceId,
-        payload: request,
-      });
-    });
-
     const handleDomEvent = (event: Event) => {
       const inputType = getInputType(event.type);
 
@@ -124,7 +114,6 @@ export default function InputManager() {
     }
 
     return () => {
-      forwardRequest();
       unregisterInputSource(POINTER_SOURCE_ID);
 
       for (const [type, listener] of listeners) {

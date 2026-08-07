@@ -14,8 +14,8 @@ export default function PointerDetection() {
   useFrame(() => {
 
     if (!(camera instanceof PerspectiveCamera)) {
-    return;
-}
+      return;
+    }
 
     raycaster.setFromCamera(pointer, camera);
 
@@ -33,12 +33,10 @@ export default function PointerDetection() {
     if (currentTarget !== previousTarget.current) {
       previousTarget.current = currentTarget;
 
-      if (currentTarget) {
-        requestInteraction({
-          targetId: currentTarget,
-          type: "input",
-        });
-      }
+      requestInteraction({
+        targetId: currentTarget ?? "",
+        type: "input",
+      });
     }
   });
 
