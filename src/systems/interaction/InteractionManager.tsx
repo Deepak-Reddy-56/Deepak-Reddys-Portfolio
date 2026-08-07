@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { subscribeInputEvents } from '../input/controller';
 import { getInteractable } from './registry';
 import type { PointerInputPayload } from '../input/types';
+import { requestCameraState } from '../camera/cameraController';
 import {
   emitInteractionEvent,
   subscribeInteractionEvents,
@@ -89,6 +90,9 @@ export default function InteractionManager() {
       if (event.type !== 'click') {
         return;
       }
+
+      requestCameraState('Monitor');
+
 
       if (focusedTarget.current === event.targetId) {
         return;
