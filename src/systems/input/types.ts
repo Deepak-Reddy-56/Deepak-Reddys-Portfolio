@@ -26,7 +26,7 @@ export interface InputEvent {
   device: InputDeviceType;
   type: InputEventType;
   timestamp: number;
-  payload?: unknown;
+  payload?: InputPayload;
 }
 
 export interface InputRequest {
@@ -35,5 +35,25 @@ export interface InputRequest {
   device: InputDeviceType;
   type: InputEventType;
   timestamp: number;
-  payload?: unknown;
+  payload?: InputPayload;
 }
+
+export interface PointerInputPayload {
+  clientX: number;
+  clientY: number;
+  button: number;
+}
+
+export interface KeyboardInputPayload {
+  key: string;
+  code: string;
+}
+
+export interface TouchInputPayload {
+  touches: number;
+}
+
+export type InputPayload =
+  | PointerInputPayload
+  | KeyboardInputPayload
+  | TouchInputPayload;

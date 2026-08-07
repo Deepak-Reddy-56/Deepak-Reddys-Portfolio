@@ -253,3 +253,24 @@ Implemented the first behavioral milestone by introducing pointer-based detectio
 - npm run dev
 - Hover lifecycle verified manually.
 - No visual regressions observed.
+
+## Phase 11 – Click Interaction Foundation
+
+### Completed
+- Extended the Interaction System to support click interactions.
+- InteractionManager now listens for pointer input events.
+- Click interactions are emitted only when the primary mouse button is pressed while hovering a registered interactable.
+- Reused the existing hover lifecycle to determine valid click targets.
+- Extended the Input System with typed pointer payloads, including mouse button information.
+- Strengthened input payload typing by introducing dedicated input payload interfaces.
+- Disabled the browser context menu for the interactive scene to provide a consistent interaction experience.
+- Preserved the existing system architecture and separation of concerns.
+
+### Validation
+- npm run typecheck
+- npm run lint
+- npm run build
+- npm run dev
+- Left-click interaction verified manually.
+- Right-click ignored and browser context menu disabled.
+- No visual regressions observed.

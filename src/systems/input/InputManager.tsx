@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { emitInputEvent, requestInput } from './controller';
 import { registerInputSource, unregisterInputSource } from './registry';
-import type { InputDeviceType, InputEventType } from './types';
+import type { InputDeviceType, InputEventType, InputPayload } from './types';
 
 const POINTER_SOURCE_ID = 'pointer';
 
@@ -43,7 +43,7 @@ function getInputDevice(type: InputEventType): InputDeviceType {
   return 'gamepad';
 }
 
-function createInputRecord(type: InputEventType, payload: unknown) {
+function createInputRecord(type: InputEventType, payload: InputPayload) {
   const device = getInputDevice(type);
   const id = `${device}:${type}:${Date.now()}`;
 
@@ -72,12 +72,13 @@ export default function InputManager() {
         return;
       }
 
-      let payload: unknown = event;
+      let payload: InputPayload | null = null;
 
       if (event instanceof PointerEvent) {
         payload = {
           clientX: event.clientX,
           clientY: event.clientY,
+          button: event.button,
         };
       } else if (event instanceof KeyboardEvent) {
         payload = {
@@ -90,7 +91,13 @@ export default function InputManager() {
         };
       }
 
-      const inputRecord = createInputRecord(inputType, payload); emitInputEvent(inputRecord);
+      if (!payload) {
+        return;
+      }
+
+      const inputRecord = createInputRecord(inputType, payload);
+
+      emitInputEvent(inputRecord);
       requestInput(inputRecord);
     };
 

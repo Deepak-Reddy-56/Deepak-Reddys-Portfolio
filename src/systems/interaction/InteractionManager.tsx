@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
+import { subscribeInputEvents } from '../input/controller';
 import { getInteractable } from './registry';
+import type { PointerInputPayload } from '../input/types';
 import {
   emitInteractionEvent,
   subscribeInteractionEvents,
@@ -44,6 +46,7 @@ export default function InteractionManager() {
 
       hoveredTarget.current = interactable.id;
 
+
       emitInteractionEvent({
         id: crypto.randomUUID(),
         targetId: interactable.id,
@@ -52,12 +55,41 @@ export default function InteractionManager() {
       });
     });
 
+    const unsubscribeInputEvents = subscribeInputEvents((event) => {
+      if (event.type !== 'pointerDown') {
+        return;
+      }
+
+      if (event.device !== 'pointer') {
+        return;
+      }
+
+      const payload = event.payload as PointerInputPayload | undefined;
+
+      if (!payload || payload.button !== 0) {
+        return;
+      }
+
+      if (hoveredTarget.current === null) {
+        return;
+      }
+
+
+      emitInteractionEvent({
+        id: crypto.randomUUID(),
+        targetId: hoveredTarget.current,
+        type: 'click',
+        timestamp: Date.now(),
+      });
+    });
+
     const unsubscribeEvents = subscribeInteractionEvents(() => {
-      // Reserved for future interaction lifecycle handling.
+      // Further use
     });
 
     return () => {
       unsubscribeRequests();
+      unsubscribeInputEvents();
       unsubscribeEvents();
     };
   }, []);
