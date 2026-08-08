@@ -328,3 +328,18 @@ Implemented the first behavioral milestone by introducing pointer-based detectio
 - npm run build
 - Verified monitor interaction correctly requests the configured camera state.
 - Verified smooth camera transition remains functional after refactoring.
+
+## Phase 16 – Monitor Screen Preparation
+
+### Completed
+- Identified the actual monitor display surface in the Blender model.
+- Renamed the display mesh object to `MonitorScreen`.
+- Re-exported the workspace GLB with the existing verified export settings.
+- Verified the renamed screen object loads correctly in Three.js.
+- Confirmed the display surface covers the intended monitor screen area.
+
+### Validation
+- Monitor model loads correctly.
+- Existing workspace textures remain intact.
+- Monitor interaction and camera transition remain functional.
+- `MonitorScreen` is accessible through `scene.getObjectByName()`.
