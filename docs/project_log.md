@@ -343,3 +343,29 @@ Implemented the first behavioral milestone by introducing pointer-based detectio
 - Existing workspace textures remain intact.
 - Monitor interaction and camera transition remain functional.
 - `MonitorScreen` is accessible through `scene.getObjectByName()`.
+
+## Phase 18 – Windows Desktop Shell
+
+### Completed
+- Added the Windows-style desktop layer to the 3D monitor.
+- Integrated the Windows-inspired wallpaper.
+- Added the translucent taskbar.
+- Added the centered Windows Start button/app group.
+- Established the taskbar layout so pinned applications can be added later.
+- Added the Start Menu shell with open/close interaction.
+- Implemented smooth Start Menu rise/fade animation.
+- Added the light azure/calcium Start Menu styling with translucent glass border.
+- Added a dynamic system tray clock and date.
+- Configured the date to use DD/MM/YYYY format.
+- Added placeholder Bluetooth and network tray icons.
+- Confirmed the monitor display remains calibrated at 710 × 402.
+- Added monitor standby state with a clickable wake screen.
+- Verified clicking the physical monitor and standby screen can trigger the Monitor camera transition.
+
+### Deferred
+- Camera animation optimization for 60 Hz smoothness.
+- Pinned taskbar applications.
+- Start Menu application contents.
+- Final system tray icons.
+- Standby screensaver carousel.
+- Final desktop wallpaper polish.

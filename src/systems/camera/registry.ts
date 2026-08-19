@@ -43,7 +43,7 @@ export function registerDefaultStates() {
   registerState({
     id: 'Monitor',
     position: [-6.1, 16.25, 0.8],
-    lookAt: [-6.0927, 16.18, 0.2],
+    lookAt: [-6.0927, 16.18355, 0.2],
     roll: INITIAL_CAMERA.roll,
     fov: CAMERA_FOV.MONITOR,
     near: 0.1,
