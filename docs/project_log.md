@@ -440,3 +440,29 @@ Implemented the first behavioral milestone by introducing pointer-based detectio
 
 ### Known Issues
 - The workspace GLB still requires measured optimization before final production sign-off.
+
+
+## 2026-11-02 — Preview build verification
+
+### Result
+- The corrected Vercel preview deployment reached `READY`.
+- `npm ci` completed successfully.
+- `npm run build` completed successfully, including `tsc -b` and the Vite production build.
+- The preview is deployed from branch `feature/quiet-studio-portfolio`, commit `390e2b17fbf6419ac7f5626d5c6a0c2cda4df86d`.
+
+### Build Output
+- Main JavaScript bundle: approximately 1.31 MB minified (368.21 kB gzip), above Vite's 500 kB advisory threshold.
+- Workspace GLB: approximately 31.99 MB.
+- CSS bundle: approximately 18.80 kB minified (5.34 kB gzip).
+
+### Follow-up Before Production Promotion
+- Profile the 3D/runtime dependencies and introduce route/component-level code splitting where it reduces the initial download.
+- Optimize the workspace GLB with a measured compression and texture review; verify visual fidelity after compression.
+- Review the 17 npm audit findings (12 moderate, 5 high) individually. Do not apply `npm audit fix --force` without reviewing breaking-change impact.
+- Perform manual browser/device testing of the intro, monitor interaction, project panels, keyboard focus and reduced-motion behaviour.
+- The external preview URL was issued by Vercel. Automated browser reachability could not be independently confirmed from the current runtime.
+
+### Release Status
+- Preview: READY.
+- Production promotion: not performed.
+- The feature branch remains separate from `master`.
