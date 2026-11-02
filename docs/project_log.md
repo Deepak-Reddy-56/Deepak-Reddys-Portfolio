@@ -418,3 +418,25 @@ Implemented the first behavioral milestone by introducing pointer-based detectio
 
 ### Recommended Next Step
 - Run the branch locally, test the room-to-monitor transition and all panel interactions, review the screen at the actual rendered monitor scale, then approve or request changes before the next milestone.
+
+
+---
+
+## 2026-11-02 — Build correction: unused particle initializer parameter
+
+### Issue
+- The first Vercel preview build failed during TypeScript compilation because the callback passed to `Array.from` in `src/os/standby/FloatingParticles.tsx` declared an unused `index` parameter.
+
+### Correction
+- Removed the unused second callback parameter. The particle positions, sizes, timing and animation mapping are unchanged.
+
+### Files Modified
+- `src/os/standby/FloatingParticles.tsx`
+- `docs/project_log.md`
+
+### Verification
+- The exact TypeScript diagnostic was retrieved from the Vercel build logs.
+- A fresh preview build is required to confirm that this blocker is resolved and to reveal any subsequent build or lint errors.
+
+### Known Issues
+- The workspace GLB still requires measured optimization before final production sign-off.
