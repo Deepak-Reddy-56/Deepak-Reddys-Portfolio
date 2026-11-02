@@ -749,3 +749,43 @@ If the answer is no, the design should be reconsidered.
 Visual complexity should never exist for its own sake.
 
 The best interface is the one that feels natural, intentional, and memorable without drawing unnecessary attention to itself.
+
+---
+
+## 33. DeepOS Editorial Interface — 2026-11-02
+
+The desktop content surface uses an editorial visual language rather than imitating a consumer operating system.
+
+### Palette
+- Paper: `#efeee7`
+- Paper deep: `#e7e5db`
+- Ink: `#252821`
+- Muted text: `#77796f`
+- Sage accent: `#8c9879`
+- Clay accent: `#bc8062`
+
+Use low-contrast gradients only to create material depth. Do not use neon, bloom, glowing borders or high-saturation gradients.
+
+### Typography
+- UI and reading text: DM Sans with an accessible system sans-serif fallback.
+- Editorial accent: Instrument Serif italic, with Georgia as the fallback.
+- Use large, tightly tracked display type for the primary statement. Use the italic serif only to create emphasis, not as a second body font.
+
+### Composition
+- The 3D workspace remains the opening environment.
+- The monitor interface is HTML/CSS, not another 3D model.
+- The home surface introduces the engineer and selected work immediately.
+- Projects are presented as an index with detail panels for context, approach, engineering notes and technology.
+- Skills are grouped in the profile panel; no progress bars or arbitrary skill percentages.
+- Do not use a generic profile-photo/skills split layout.
+
+### Motion
+- Framer Motion owns interface transitions, panel entry/exit and small interaction feedback.
+- GSAP is reserved for complex camera choreography where it is justified.
+- Hover movement is limited to a few pixels. Avoid looping decorative animation; one quiet diagram pulse is permitted.
+- Respect `prefers-reduced-motion` and keep all content accessible without animation.
+
+### Accessibility
+- Dialogs expose `role="dialog"` and `aria-modal`.
+- Provide keyboard close via Escape, managed focus and visible focus indicators.
+- All interactive controls remain semantic buttons or links.
