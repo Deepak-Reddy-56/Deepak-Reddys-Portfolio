@@ -369,3 +369,52 @@ Implemented the first behavioral milestone by introducing pointer-based detectio
 - Final system tray icons.
 - Standby screensaver carousel.
 - Final desktop wallpaper polish.
+
+---
+
+## 2026-11-02 — Milestone 19: DeepOS editorial portfolio interface
+
+### Task Completed
+- Replaced the unfinished Windows-inspired desktop surface with an original editorial portfolio interface.
+- Added a data-driven project index for Secure BMS Provenance, SentinelLog and CampusCopilot using their repository documentation as the source of truth.
+- Added project detail, profile and contact panels with keyboard dismissal, focus management, semantic dialog roles and reduced-motion handling.
+- Added a restrained warm-neutral palette, DM Sans / Instrument Serif typography, subtle paper grain, a custom systems diagram and Framer Motion transitions.
+- Preserved the existing 3D workspace, monitor, camera and interaction systems.
+
+### Files Created
+- `src/os/portfolioData.ts`
+- `src/os/PortfolioPanel.tsx`
+- `src/os/deepos.css`
+
+### Files Modified
+- `src/os/Desktop.tsx`
+- `index.html`
+
+### Reasoning
+- Recruiters should reach meaningful project work immediately rather than navigate an empty start menu or a decorative desktop.
+- Project descriptions focus on context, approach and engineering decisions rather than unsupported performance claims or generic developer slogans.
+- The 3D room remains the distinctive entry point; the portfolio content stays lightweight HTML/CSS inside the existing monitor screen.
+- The existing Framer Motion dependency is reused. GSAP is not introduced into UI interactions; camera choreography remains a separate concern.
+
+### Architectural Decisions
+- Portfolio content is stored as typed data rather than embedded in each presentation component.
+- The portfolio panel owns panel-level dismissal and keyboard behaviour.
+- No new global state store was introduced; the active panel remains local state in the desktop shell.
+- No 3D geometry or Blender source assets were changed.
+
+### Verification
+- Repository changes are isolated to branch `feature/quiet-studio-portfolio`.
+- Local build, lint and browser interaction tests remain pending because the repository could not be cloned into the current runtime.
+- Remote preview deployment has not yet been verified.
+
+### Known Issues
+- The runtime workspace GLB is approximately 32 MB and requires a separate measured optimization pass.
+- Email and LinkedIn have not been linked; only the public GitHub profile is used as the verified contact route.
+- The current physical monitor viewport is 710 × 402; responsive CSS includes narrow and short viewport adaptations, but device testing is still required.
+
+### Technical Debt
+- Existing unused Windows-inspired components and image assets remain in the repository; they were not deleted as part of this milestone.
+- Google Fonts are loaded externally with local system fallbacks; self-hosting may be considered after production performance and privacy review.
+
+### Recommended Next Step
+- Run the branch locally, test the room-to-monitor transition and all panel interactions, review the screen at the actual rendered monitor scale, then approve or request changes before the next milestone.
