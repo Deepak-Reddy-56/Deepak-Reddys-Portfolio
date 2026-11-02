@@ -695,3 +695,41 @@ Architecture remains modular.
 Documentation stays synchronized.
 
 Future expansion remains possible without major restructuring.
+
+---
+
+# Feature 16 — DeepOS Editorial Portfolio Interface
+
+## Purpose
+Present selected engineering work immediately inside the existing monitor experience, without turning the desktop into a generic landing page or copying a consumer operating system.
+
+## Behaviour
+- Display a concise personal statement, location/context and a short index of selected projects.
+- Keep the workspace as the 3D introduction and render portfolio information in lightweight HTML/CSS.
+- Provide project detail panels with context, approach, engineering notes, technology and a source repository link.
+- Provide profile and contact panels.
+- Keep the active panel in local component state; do not introduce a global store for this UI.
+
+## Interaction
+- Project index rows open the corresponding project dossier.
+- Profile and Contact controls open their respective panels.
+- Dialogs close through the close control, Escape or clicking the scrim.
+- Focus moves into the dialog and remains within the dialog while it is open.
+- Respect reduced-motion preferences.
+
+## Visual Direction
+- Warm paper, graphite, muted sage and clay accents.
+- DM Sans for interface text and Instrument Serif italic for editorial emphasis.
+- A small original systems diagram replaces stock imagery or a generic portrait.
+- Avoid neon, glowing effects, skill percentage bars and decorative technology badges.
+
+## Dependencies
+- Existing React, TypeScript and Framer Motion dependencies.
+- Existing 3D workspace, monitor, camera and interaction systems remain unchanged.
+
+## Acceptance Criteria
+- Project content is sourced from project documentation and contains no invented metrics.
+- All panels are reachable by keyboard and pointer.
+- Reduced-motion mode suppresses non-essential movement.
+- The interface remains legible at the current 710 × 402 monitor viewport and narrower viewports.
+- The desktop no longer depends on the legacy Windows wallpaper or taskbar artwork.
