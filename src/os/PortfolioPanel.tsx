@@ -17,7 +17,7 @@ export default function PortfolioPanel({
   onClose,
 }: PortfolioPanelProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = Boolean(useReducedMotion());
 
   useEffect(() => {
     if (!panel) return;
@@ -25,7 +25,30 @@ export default function PortfolioPanel({
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const dialog = closeButtonRef.current?.closest("section");
+      const focusable = dialog?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -199,10 +222,6 @@ function ContactContent() {
         <span>Find me on GitHub</span>
         <span aria-hidden="true">↗</span>
       </a>
-      <p className="contact-footnote">
-        GitHub is the verified public contact route listed here. Direct email
-        and LinkedIn can be added once their preferred public links are confirmed.
-      </p>
     </div>
   );
 }
