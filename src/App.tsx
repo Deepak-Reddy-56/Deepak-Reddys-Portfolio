@@ -219,7 +219,37 @@ export default function App() {
     );
 
     document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+
+    const updateScrollUi = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      const scrollMeter = document.querySelector('.scroll-track span') as HTMLElement | null;
+      if (scrollMeter) scrollMeter.style.transform = 'scaleY(' + progress + ')';
+
+      const sectionIds = ['home', 'about', 'work', 'contact'];
+      let activeSection = sectionIds[0];
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section && section.getBoundingClientRect().top <= window.innerHeight * 0.38) {
+          activeSection = id;
+        }
+      });
+
+      document.querySelectorAll('.side-rail .rail-dot').forEach((dot) => {
+        const link = dot as HTMLAnchorElement;
+        link.classList.toggle('rail-dot--active', link.getAttribute('href') === '#' + activeSection);
+      });
+    };
+
+    window.addEventListener('scroll', updateScrollUi, { passive: true });
+    window.addEventListener('resize', updateScrollUi);
+    updateScrollUi();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', updateScrollUi);
+      window.removeEventListener('resize', updateScrollUi);
+    };
   }, []);
 
   return (
