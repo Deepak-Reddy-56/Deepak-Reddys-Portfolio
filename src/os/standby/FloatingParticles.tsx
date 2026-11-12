@@ -1,4 +1,4 @@
-const particles = Array.from({ length: 42 }, (_, index) => ({
+const particles = Array.from({ length: 42 }, () => ({
   left: `${4 + Math.random() * 92}%`,
   top: `${4 + Math.random() * 88}%`,
   size: 1 + Math.random() * 3,
